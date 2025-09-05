@@ -85,7 +85,7 @@ export default function Chats() {
       setIsListening(true);
     };
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setMessage((prev) => prev + " " + transcript);
     };
