@@ -53,7 +53,7 @@ export const NEXT_AUTH = {
       const name = profile.name;
       const picture = profile.picture;
       const user = await axios.post(
-        `https://wellnest.api.mohit-hingorani.tech/user`,
+        `http://localhost:3002/user`,
         {
           name,
           email,

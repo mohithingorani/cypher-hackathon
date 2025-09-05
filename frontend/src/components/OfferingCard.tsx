@@ -17,32 +17,32 @@ export default function OfferingCard({
 
   return (
     <div
-      onMouseOver={() => {
-        setZaxisFinal(60);
-      }}
-      onMouseLeave={() => {
-        setZaxisFinal(z_axis);
-      }}
-      style={{
-        zIndex: z_axisFinal,
-      }}
-      className={`w-full sm:w-full cursor-pointer transition-transform relative duration-200 ease-out hover:scale-105 h-fit  sm:h-[500px] rounded-2xl border-2 border-black bg-[#E6E8D2]/80 ${className}`}
+      onMouseOver={() => setZaxisFinal(60)}
+      onMouseLeave={() => setZaxisFinal(z_axis)}
+      style={{ zIndex: z_axisFinal }}
+      className={`w-full cursor-pointer relative rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-md hover:shadow-2xl h-fit sm:h-[480px] ${className}`}
     >
-      <div className="w-full text-2xl text-center font-bold text-slate-700 flex justify-center pt-4">
-        <div>{label}</div>
+      {/* Title */}
+      <div className="w-full text-xl sm:text-2xl text-center font-semibold text-white drop-shadow-md px-2 pt-5">
+        {label}
       </div>
 
-      <div className="flex flex-col justify-center items-center h-full pb-4 text-[#09615d]">
+      {/* Content */}
+      <div className="flex flex-col justify-center items-center h-full pb-6 text-[#48C9B0]">
         <Image
           src={`/services/${image}`}
-          width={130}
-          height={180}
-          alt="image"
+          width={150}
+          height={200}
+          alt={label}
+          className="mt-6 drop-shadow-md"
         />
-        <div className="absolute bottom-4 left-[35%]">
+
+        {/* Arrow Button */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
           <Image src={"/arrow.svg"} width={50} height={20} alt="arrow" />
         </div>
       </div>
     </div>
   );
 }
+  

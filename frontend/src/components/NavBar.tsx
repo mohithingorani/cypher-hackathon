@@ -2,70 +2,95 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function NavBar() {
   const session = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [openServices, setOpenServices] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const Links: Record<string, string> = {
     HOME: "/",
     CONTACT: "/contact",
   };
 
-  const router = useRouter();
-  const pathname = usePathname();
-  return (
-    <nav>
-      <div className="flex w-full z-120 justify-end px-8 py-8 gap-4 text-sm bg-[#E6E8D2] shadow-xl h-20 fixed top-0 items-center md:px-60">
-        <div className="flex  flex-start w-full">
-          <button
-            className="cursor-pointer"
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            <Image
-              src={"/wellnestlogo.svg"}
-              width={"150"}
-              height={"150"}
-              alt="logo"
-            />
-          </button>
-        </div>
+  const services = [
+    { name: "AI THERAPIST", link: "/ai-chatbot" },
+    { name: "FIND THERAPISTS", link: "/find-therapist" },
+  ];
 
-        {Object.keys(Links).map((link, index) => (
-          <a
-            key={index}
-            href={Links[link]}
-            className={`h-8 ${
-              pathname === Links[link] ? "text-[#896790]" : " text-slate-600"
-            }   hover:text-[#896790] `}
-          >
+  return (
+    <nav className="fixed top-0 w-full z-50 bg-[#E6E8D2] shadow-md">
+      <div className="flex justify-between items-center px-6 md:px-20 h-20">
+        {/* Logo */}
+        <button onClick={() => router.push("/")}>
+          <Image
+            src={"/wellnestlogo.svg"}
+            width={140}
+            height={140}
+            alt="logo"
+            className="cursor-pointer"
+          />
+        </button>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+          {Object.keys(Links).map((link, index) => (
             <button
-              className={`hover:border-b-2 ${
-                pathname === Links[link] && "border-b-2"
-              } cursor-pointer   h-full`}
+              key={index}
+              onClick={() => router.push(Links[link])}
+              className={`relative pb-1 transition-colors ${
+                pathname === Links[link]
+                  ? "text-[#896790]"
+                  : "text-slate-600 hover:text-[#896790]"
+              }`}
             >
               {link}
+              {pathname === Links[link] && (
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#896790]"></span>
+              )}
             </button>
-          </a>
-        ))}
-        <div
-          className={`h-8 cursor-pointer text-slate-600 hover:text-[#896790]`}
-        >
-          <InputForm services={services} />
-        </div>
-        <div
-          className={`h-8 cursor-pointer text-slate-600 hover:text-[#896790]`}
-        >
+          ))}
+
+          {/* Services Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setOpenServices(true)}
+            onMouseLeave={() => setOpenServices(false)}
+          >
+            <button
+              className={`relative pb-1 text-slate-600 hover:text-[#896790] ${
+                openServices && "text-[#896790]"
+              }`}
+            >
+              SERVICES
+            </button>
+            {openServices && (
+              <div className="absolute top-8 left-0 bg-white border rounded-lg shadow-lg w-48 py-2">
+                {services.map((service, key) => (
+                  <button
+                    key={key}
+                    onClick={() => router.push(service.link)}
+                    className="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-[#E6E8D2] hover:text-[#896790]"
+                  >
+                    {service.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Login/Logout */}
           <button
-            onClick={() => {
-              if (session.status === "authenticated") {
-                signOut();
-              } else {
-                router.push("/login");
-              }
-            }}
-            className={`hover:border-b-2  h-full cursor-pointer`}
+            onClick={() =>
+              session.status === "authenticated"
+                ? signOut()
+                : router.push("/login")
+            }
+            className="relative pb-1 text-slate-600 hover:text-[#896790]"
           >
             {session.status === "unauthenticated" ||
             session.status === "loading"
@@ -73,51 +98,95 @@ export default function NavBar() {
               : "LOGOUT"}
           </button>
         </div>
+
+        {/* Mobile Hamburger */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setOpenMenu(!openMenu)}
+            className="focus:outline-none"
+          >
+            <svg
+              className="w-6 h-6 text-slate-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {openMenu ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {openMenu && (
+        <div className="md:hidden flex flex-col items-center bg-[#E6E8D2] shadow-lg py-4 gap-4">
+          {Object.keys(Links).map((link, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                router.push(Links[link]);
+                setOpenMenu(false);
+              }}
+              className={`text-base ${
+                pathname === Links[link]
+                  ? "text-[#896790]"
+                  : "text-slate-600 hover:text-[#896790]"
+              }`}
+            >
+              {link}
+            </button>
+          ))}
+
+          {/* Services dropdown in mobile */}
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-slate-600 font-medium">SERVICES</span>
+            {services.map((service, key) => (
+              <button
+                key={key}
+                onClick={() => {
+                  router.push(service.link);
+                  setOpenMenu(false);
+                }}
+                className="text-sm text-slate-600 hover:text-[#896790]"
+              >
+                {service.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Login/Logout */}
+          <button
+            onClick={() => {
+              if (session.status === "authenticated") {
+                signOut();
+              } else {
+                router.push("/login");
+              }
+              setOpenMenu(false);
+            }}
+            className="text-base text-slate-600 hover:text-[#896790]"
+          >
+            {session.status === "unauthenticated" ||
+            session.status === "loading"
+              ? "LOGIN"
+              : "LOGOUT"}
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
-
-const services = [
-  {
-    name: "AI THERAPIST",
-    link: "/ai-chatbot",
-  },
-  {
-    name: "FIND THERAPISTS",
-    link: "/find-therapist",
-  },
-];
-
-interface service {
-  name: string;
-  link: string;
-}
-const InputForm = ({ services }: { services: service[] }) => {
-  const router = useRouter();
-
-  return (
-    <select
-      defaultValue="SERVICES"
-      id="services"
-      className="h-8 outline-none w-[100px] cursor-pointer text-slate-600 hover:border-b-2 hover:text-[#896790]"
-      onChange={(e) => {
-        const selectedService = services.find(
-          (service) => service.link === e.target.value
-        );
-        if (selectedService) {
-          router.push(selectedService.link);
-        }
-      }}
-    >
-      <option value="SERVICES" disabled>
-        SERVICES
-      </option>
-      {services.map((service, key) => (
-        <option key={key} value={service.link}>
-          {service.name}
-        </option>
-      ))}
-    </select>
-  );
-};

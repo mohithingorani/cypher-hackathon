@@ -17,7 +17,7 @@ export default function FindTherapistCard2({
 
   const [showForm, setShowForm] = useState<boolean>(false);
   async function getTherapists() {
-    const response =  await axios.get(`https://wellnest.api.mohit-hingorani.tech/user/alltherapists`)
+    const response =  await axios.get(`http://localhost:3002/user/alltherapists`)
     console.log(response);
     setTherapists(response.data);
   }
