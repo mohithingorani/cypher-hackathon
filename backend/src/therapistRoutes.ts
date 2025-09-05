@@ -73,4 +73,17 @@ router.post("/create", async (req, res) => {
   }
 });
 
+router.post("/changeImage",async (req,res)=>{
+  const {id,image} = req.body;
+  try{
+    const imageChange = await prisma.therapist.update({
+      where:{
+        id
+      },data:{
+        
+      }
+    })
+  }
+})
+
 export default router;
