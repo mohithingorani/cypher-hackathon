@@ -68,22 +68,32 @@ router.post("/create", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.json({
-      err
+      err,
     });
   }
 });
 
-router.post("/changeImage",async (req,res)=>{
-  const {id,image} = req.body;
-  try{
+router.post("/changeImage", async (req, res) => {
+  const { id, image } = req.body;
+  try {
     const imageChange = await prisma.therapist.update({
-      where:{
-        id
-      },data:{
-        
-      }
-    })
+      where: {
+        id,
+      },
+      data: {
+        image,
+      },
+    });
+    res.json({
+      message: "changed image successfully",
+      imageChange,
+    });
+  } catch (err) {
+    console.log("Cant change image");
+    res.json({
+      err,
+    });
   }
-})
+});
 
 export default router;
