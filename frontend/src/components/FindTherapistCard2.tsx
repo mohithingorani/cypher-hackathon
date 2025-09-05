@@ -2,6 +2,7 @@
 import { Therapist } from "@/app/therapists/page";
 import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function FindTherapistCard2({
@@ -17,7 +18,7 @@ export default function FindTherapistCard2({
 
   const [showForm, setShowForm] = useState<boolean>(false);
   async function getTherapists() {
-    const response =  await axios.get(`http://localhost:3002/user/alltherapists`)
+    const response =  await axios.get(`http://localhost:3002/therapist/alltherapists`)
     console.log(response);
     setTherapists(response.data);
   }
@@ -51,6 +52,7 @@ export default function FindTherapistCard2({
 }
 
 const InputForm = ({ therapists }: { therapists: Therapist[] }) => {
+  const router = useRouter();
   return (
     <form onClick={(e)=>{
         e.stopPropagation();
@@ -73,6 +75,7 @@ const InputForm = ({ therapists }: { therapists: Therapist[] }) => {
         })}
       </select>
         <button
+        onClick={()=>router.push("/therapists")}
           className="bg-blue-700 hover:bg-blue-800 border w-full border-gray-300 text-white mt-2 text-sm rounded-lg   p-2.5 "
         >
           Proceed

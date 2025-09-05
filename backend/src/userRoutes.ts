@@ -144,21 +144,7 @@ router.get("/allusers", async (req, res) => {
   }
 });
 
-router.get("/alltherapists",async(req,res)=>{
-  try{
-    const therapists = await prisma.therapist.findMany({
-      
-      include : {
-      languages: true,
-      },
-      
-    });
-    
-    res.json(therapists);
-  }catch(err){
-    console.log(err);
-  }
-})
+
 
 router.get("/user/validate", async (req, res): Promise<any> => {
   const token = req.headers.authorization?.split(" ")[1];

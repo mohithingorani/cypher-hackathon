@@ -39,6 +39,21 @@ router.post("/therapist/appointments", (req, res) => {
     res.json({ message: "Error" });
   }
 });
+router.get("/alltherapists",async(req,res)=>{
+  try{
+    const therapists = await prisma.therapist.findMany({
+      
+      include : {
+      languages: true,
+      },
+      
+    });
+    
+    res.json(therapists);
+  }catch(err){
+    console.log(err);
+  }
+})
 //get all therapists users
 router.get("/therapists", async (req, res) => {
   try {

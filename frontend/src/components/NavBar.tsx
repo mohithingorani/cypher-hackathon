@@ -39,9 +39,9 @@ export default function NavBar() {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
           {Object.keys(Links).map((link, index) => (
-            <a href={Links[link]}>
+            <a key={index} href={Links[link]}>
             <button
-              key={index}
+              
               // onClick={() => router.push(Links[link])}
               className={`relative pb-1 transition-colors ${
                 pathname === Links[link]
