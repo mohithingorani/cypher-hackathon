@@ -35,7 +35,7 @@ export default function Therapists() {
   }, []);
 
   return (
-    <div className="mt-20 w-full px-4">
+    <div className="mt-20 w-full px-4 ">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Sidebar for Filters */}
         <div className="md:col-span-1">

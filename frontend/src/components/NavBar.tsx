@@ -39,9 +39,10 @@ export default function NavBar() {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
           {Object.keys(Links).map((link, index) => (
+            <a href={Links[link]}>
             <button
               key={index}
-              onClick={() => router.push(Links[link])}
+              // onClick={() => router.push(Links[link])}
               className={`relative pb-1 transition-colors ${
                 pathname === Links[link]
                   ? "text-[#896790]"
@@ -53,6 +54,7 @@ export default function NavBar() {
                 <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#896790]"></span>
               )}
             </button>
+            </a>
           ))}
 
           {/* Services Dropdown */}
