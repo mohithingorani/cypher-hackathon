@@ -19,10 +19,10 @@ export default function FindTherapist() {
       <div className="text-4xl relative  flex justify-center ">
         Welcome! Let&apos;s find the perfect therapist for you!✨
       </div>
-      <div className="flex justify-start mt-8">
+      <div className="flex justify-start my-8">
         <Image src={"/robot.svg"} width={"250"} height={"250"} alt="robot" />
         {stage === 1 && (
-          <div className="text-white rounded-tl-4xl rounded-r-4xl max-w-xl shadow-xl  bg-green-700 py-8 px-6 h-fit text-4xl items-center">
+          <div className="text-white mb-24 rounded-tl-4xl rounded-r-4xl max-w-xl shadow-xl  bg-green-700 py-8 px-6 h-fit text-4xl items-center">
             Hey there! I&apos;m Stefany,{" "}
             <div>
               your friendly therapist finder!
