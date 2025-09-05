@@ -10,7 +10,7 @@ interface OfferingTypesType {
 export default function Home() {
   const offeringTypes: OfferingTypesType[] = [
     { Name: "Couples Therapy", Image: "couple.svg", Z: 40 },
-    { Name: "Individual Therapy", Image: "personal.svg", Z: 50 },
+    { Name: "Individual Therapy", Image: "personal.svg", Z: 40 },
     { Name: "Psychiatry", Image: "psychiatry.svg", Z: 30 },
     { Name: "Career Counselling", Image: "career.svg", Z: 20 },
   ];

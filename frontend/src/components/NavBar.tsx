@@ -23,7 +23,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-[#E6E8D2] shadow-md">
+    <nav className="fixed top-0 w-full z-50 bg-[#0f2027]/90 backdrop-blur-md shadow-lg">
       <div className="flex justify-between items-center px-6 md:px-20 h-20">
         {/* Logo */}
         <button onClick={() => router.push("/")}>
@@ -39,22 +39,20 @@ export default function NavBar() {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
           {Object.keys(Links).map((link, index) => (
-            <a key={index} href={Links[link]}>
             <button
-              
-              // onClick={() => router.push(Links[link])}
-              className={`relative pb-1 transition-colors ${
+              key={index}
+              onClick={() => router.push(Links[link])}
+              className={`relative pb-1 cursor-pointer transition-colors ${
                 pathname === Links[link]
-                  ? "text-[#896790]"
-                  : "text-slate-600 hover:text-[#896790]"
+                  ? "text-[#48C9B0]"
+                  : "text-[#E6E8D2] hover:text-[#48C9B0]"
               }`}
             >
               {link}
               {pathname === Links[link] && (
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#896790]"></span>
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#48C9B0]"></span>
               )}
             </button>
-            </a>
           ))}
 
           {/* Services Dropdown */}
@@ -64,19 +62,19 @@ export default function NavBar() {
             onMouseLeave={() => setOpenServices(false)}
           >
             <button
-              className={`relative pb-1 text-slate-600 hover:text-[#896790] ${
-                openServices && "text-[#896790]"
+              className={`relative pb-1 transition-colors ${
+                openServices ? "text-[#48C9B0]" : "text-[#E6E8D2] hover:text-[#48C9B0]"
               }`}
             >
               SERVICES
             </button>
             {openServices && (
-              <div className="absolute top-8 left-0 bg-white border rounded-lg shadow-lg w-48 py-2">
+              <div className="absolute top-8 left-0 bg-[#203a43] border border-[#2c5364] rounded-lg shadow-lg w-48 py-2">
                 {services.map((service, key) => (
                   <button
                     key={key}
                     onClick={() => router.push(service.link)}
-                    className="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-[#E6E8D2] hover:text-[#896790]"
+                    className="block w-full text-left px-4 py-2 text-sm text-[#E6E8D2] hover:bg-[#2c5364] hover:text-[#48C9B0]"
                   >
                     {service.name}
                   </button>
@@ -92,7 +90,7 @@ export default function NavBar() {
                 ? signOut()
                 : router.push("/login")
             }
-            className="relative pb-1 text-slate-600 hover:text-[#896790]"
+            className="relative pb-1 text-[#E6E8D2] hover:text-[#48C9B0]"
           >
             {session.status === "unauthenticated" ||
             session.status === "loading"
@@ -108,7 +106,7 @@ export default function NavBar() {
             className="focus:outline-none"
           >
             <svg
-              className="w-6 h-6 text-slate-700"
+              className="w-6 h-6 text-[#E6E8D2]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -135,7 +133,7 @@ export default function NavBar() {
 
       {/* Mobile Menu */}
       {openMenu && (
-        <div className="md:hidden flex flex-col items-center bg-[#E6E8D2] shadow-lg py-4 gap-4">
+        <div className="md:hidden flex flex-col items-center bg-[#203a43] shadow-lg py-4 gap-4">
           {Object.keys(Links).map((link, index) => (
             <button
               key={index}
@@ -145,8 +143,8 @@ export default function NavBar() {
               }}
               className={`text-base ${
                 pathname === Links[link]
-                  ? "text-[#896790]"
-                  : "text-slate-600 hover:text-[#896790]"
+                  ? "text-[#48C9B0]"
+                  : "text-[#E6E8D2] hover:text-[#48C9B0]"
               }`}
             >
               {link}
@@ -155,7 +153,7 @@ export default function NavBar() {
 
           {/* Services dropdown in mobile */}
           <div className="flex flex-col items-center gap-2">
-            <span className="text-slate-600 font-medium">SERVICES</span>
+            <span className="text-[#E6E8D2] font-medium">SERVICES</span>
             {services.map((service, key) => (
               <button
                 key={key}
@@ -163,7 +161,7 @@ export default function NavBar() {
                   router.push(service.link);
                   setOpenMenu(false);
                 }}
-                className="text-sm text-slate-600 hover:text-[#896790]"
+                className="text-sm text-[#E6E8D2] hover:text-[#48C9B0]"
               >
                 {service.name}
               </button>
@@ -180,7 +178,7 @@ export default function NavBar() {
               }
               setOpenMenu(false);
             }}
-            className="text-base text-slate-600 hover:text-[#896790]"
+            className="text-base text-[#E6E8D2] hover:text-[#48C9B0]"
           >
             {session.status === "unauthenticated" ||
             session.status === "loading"
