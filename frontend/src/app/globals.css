@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+.moving-element {
+  width: 90vh;
+  height: 300px;
+  animation: move 5s linear infinite alternate; /* Adjust duration and timing as needed */
+}
+
+.moving-element {
+  width: 90vh;
+  height: 300px;
+  animation: move 5s linear infinite alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0) rotateY(0deg); /* Start at left edge */
+  }
+  49% {
+    transform: translateX(100%) rotateY(0deg); /* Move to right edge */
+  }
+  50% {
+    transform: translateX(100%) rotateY(180deg); /* Flip immediately */
+  }
+  100% {
+    transform: translateX(0) rotateY(180deg); /* Move back to left edge with flip */
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px; /* Set the width of the scrollbar */
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+  background: transparent; /* Set the background color of the track */
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #ffffff; /* Set the background color of the thumb */
+  border-radius: 5px; /* Round the corners of the thumb */
+}
+
+/* Optional: Style the thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Set the background color of the thumb on hover */
+}
+
+
