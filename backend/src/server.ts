@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
-import therapistRoutes from "./therapistRoutes";
-import userRoutes from "./userRoutes";
-import adminRoutes from "./adminRoutes";
+import therapistRoutes from "./routes/therapistRoutes";
+import userRoutes from "./routes/userRoutes";
+import adminRoutes from "./routes/adminRoutes";
 import dotenv from "dotenv";
+import bookingRoutes from "./routes/bookingRoutes";
 
 dotenv.config(); // Load environment variables
 
@@ -17,6 +18,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use("/therapist", therapistRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
+app.use("/chat",bookingRoutes);
 
 const port = process.env.PORT || 3000;
 
