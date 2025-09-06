@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -17,23 +18,24 @@ export default function FindTherapistCard({
 
   return (
     <button
-      onClick={() => {
-        router.push(link);
-      }}
-      className="flex text-start flex-col items-center border-black bg-[#E6E8D2] hover:bg-[#d6d8bf] border py-4  rounded-lg shadow-sm md:flex-row max-w-3xl w-full "
+      onClick={() => router.push(link)}
+      className="flex flex-col md:flex-row max-w-3xl w-full overflow-hidden border border-[#2c5364] bg-[#203a43] text-[#E6E8D2] hover:bg-[#2c5364] transition-colors rounded-xl shadow-lg hover:shadow-2xl"
     >
+      {/* Image */}
       <Image
-        className="object-cover w-full p-4 md:p-0 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-        height={"300"}
-        width={"300"}
-        src={`${image}`}
-        alt=""
+        src={image}
+        width={300}
+        height={300}
+        alt="therapist option"
+        className="object-cover w-full md:w-48 h-56 md:h-auto"
       />
-      <div className="flex flex-col justify-between p-4 leading-normal">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+
+      {/* Content */}
+      <div className="flex flex-col justify-center p-6 text-left">
+        <h5 className="mb-2 text-xl md:text-2xl font-bold text-[#48C9B0]">
           {heading}
         </h5>
-        <p className="mb-3 font-normal text-gray-700 ">{description}</p>
+        <p className="text-sm md:text-base text-gray-300">{description}</p>
       </div>
     </button>
   );

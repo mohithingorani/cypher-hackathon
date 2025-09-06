@@ -4,13 +4,14 @@ import { MouseEventHandler, useState } from "react";
 export default function FilterCard() {
   const [selected, setSelected] = useState(1);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
   const data = [
     {
       id: 1,
       name: "Session Mode",
       options: [
         { id: 1, name: "Online" },
-        { id: 2, name: "In-person " },
+        { id: 2, name: "In-person" },
       ],
     },
     {
@@ -45,53 +46,51 @@ export default function FilterCard() {
         { id: 14, name: "Attachment" },
         { id: 15, name: "Divorce" },
         { id: 16, name: "Abuse" },
-        { id: 17, name: "OCD" }
-        
+        { id: 17, name: "OCD" },
       ],
     },
   ];
 
   return (
-    <>
-      <div className="w-full border shadow-md rounded-2xl bg-[#E6E8D2] text-black border-black  p-4 h-[250px]">
-        <h1 className="text-2xl font-bold mb-2">Apply Filters</h1>
-        <div className="flex text-xs gap-1  ">
-          {data.map((object) => {
-            return (
-              <BorderedLabels
-                key={object.id}
-                onClick={() => setSelected(object.id)}
-                selected={selected == object.id}
-                label={object.name}
-              />
-            );
-          })}
-        </div>
-        <div className="mt-4 overflow-y-scroll  max-h-30">
-          {data.map((object) => {
-            if (object.id == selected) {
-              return object.options.map((option) => {
-                return (
-                  <div key={option.id} className="flex flex-col items-start ">
-                    <label  className="flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="filterOption"
-                        onChange={() => setSelectedOption(option.id)}
-                        checked={selectedOption === option.id}
-                      />
-                      {option.name}
-                    </label>
-                  </div>
-                );
-              });
-            }
-          })}
-        </div>
- 
+    <div className="w-full rounded-xl shadow-lg border border-[#48C9B0]/30 bg-gradient-to-b from-[#1a2a33] via-[#1f3a43] to-[#2c5364] text-[#E6E8D2] p-4 h-[250px]">
+      <h1 className="text-xl font-semibold mb-3 text-[#48C9B0]">
+        Apply Filters
+      </h1>
+
+      {/* Category Labels */}
+      <div className="flex flex-wrap gap-2 text-xs">
+        {data.map((object) => (
+          <BorderedLabels
+            key={object.id}
+            onClick={() => setSelected(object.id)}
+            selected={selected === object.id}
+            label={object.name}
+          />
+        ))}
       </div>
-      
-    </>
+
+      {/* Options */}
+      <div className="mt-4 overflow-y-auto max-h-32 pr-1">
+        {data.map((object) =>
+          object.id === selected
+            ? object.options.map((option) => (
+                <div key={option.id} className="flex flex-col items-start">
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                      type="radio"
+                      name="filterOption"
+                      onChange={() => setSelectedOption(option.id)}
+                      checked={selectedOption === option.id}
+                      className="accent-[#48C9B0]"
+                    />
+                    {option.name}
+                  </label>
+                </div>
+              ))
+            : null
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -105,17 +104,15 @@ const BorderedLabels = ({
   onClick?: MouseEventHandler | undefined;
 }) => {
   return (
-    <>
-      <button
-        onClick={onClick}
-        className={`px-2 cursor-pointer py-1 border ${
-          selected
-            ? "bg-slate-800 text-white"
-            : "text-slate-800 hover:bg-slate-300 bg-white"
-        } rounded-full`}
-      >
-        {label}
-      </button>
-    </>
+    <button
+      onClick={onClick}
+      className={`px-3 py-1 rounded-full border text-xs transition ${
+        selected
+          ? "bg-[#48C9B0] text-white border-[#48C9B0]"
+          : "bg-transparent text-[#E6E8D2] border-[#48C9B0]/40 hover:bg-[#48C9B0]/10"
+      }`}
+    >
+      {label}
+    </button>
   );
 };

@@ -153,7 +153,7 @@ export default function NavBar() {
 
           {/* Services dropdown in mobile */}
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[#E6E8D2] font-medium">SERVICES</span>
+            <span className="text-[#E6E8D2] cursor-pointer font-medium">SERVICES</span>
             {services.map((service, key) => (
               <button
                 key={key}
@@ -161,7 +161,7 @@ export default function NavBar() {
                   router.push(service.link);
                   setOpenMenu(false);
                 }}
-                className="text-sm text-[#E6E8D2] hover:text-[#48C9B0]"
+                className="text-sm cursor-pointer text-[#E6E8D2] hover:text-[#48C9B0]"
               >
                 {service.name}
               </button>

@@ -1,4 +1,5 @@
 "use client";
+
 import { Therapist } from "@/app/therapists/page";
 import axios from "axios";
 import Image from "next/image";
@@ -14,37 +15,44 @@ export default function FindTherapistCard2({
   image: string;
   description: string;
 }) {
-  const [therapists, setTherapists] = useState<Therapist[] | []>([]);
+  const [therapists, setTherapists] = useState<Therapist[]>([]);
+  const [showForm, setShowForm] = useState(false);
 
-  const [showForm, setShowForm] = useState<boolean>(false);
-  async function getTherapists() {
-    const response =  await axios.get(`http://localhost:3002/therapist/alltherapists`)
-    console.log(response);
-    setTherapists(response.data);
-  }
   useEffect(() => {
+    async function getTherapists() {
+      try {
+        const response = await axios.get(
+          `http://localhost:3002/therapist/alltherapists`
+        );
+        setTherapists(response.data);
+      } catch (error) {
+        console.error("Failed to fetch therapists", error);
+      }
+    }
     getTherapists();
   }, []);
+
   return (
     <div
-      onClick={() => {
-        console.log("Button Clicked");
-        setShowForm(!showForm);
-      }}
-      className="flex text-start flex-col border-black items-center hover:bg-[#d6d8bf] bg-[#E6E8D2] border py-4  rounded-lg shadow-sm md:flex-row max-w-3xl w-full "
+      onClick={() => setShowForm(!showForm)}
+      className="flex flex-col md:flex-row max-w-3xl w-full overflow-hidden border border-[#2c5364] bg-[#203a43] text-[#E6E8D2] hover:bg-[#2c5364] transition-colors rounded-xl shadow-lg hover:shadow-2xl cursor-pointer"
     >
+      {/* Image */}
       <Image
-        className="object-cover w-full p-4 md:p-0 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-        height={"300"}
-        width={"300"}
-        src={`${image}`}
-        alt=""
+        src={image}
+        width={300}
+        height={300}
+        alt="therapist option"
+        className="object-cover w-full md:w-48 h-56 md:h-auto"
       />
-      <div className="flex flex-col justify-between p-4 leading-normal">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+
+      {/* Content */}
+      <div className="flex flex-col justify-center p-6 text-left w-full">
+        <h5 className="mb-2 text-xl md:text-2xl font-bold text-[#48C9B0]">
           {heading}
         </h5>
-        <p className="mb-3 font-normal text-gray-700 ">{description}</p>
+        <p className="text-sm md:text-base text-gray-300">{description}</p>
+
         {showForm && <InputForm therapists={therapists} />}
       </div>
     </div>
@@ -53,33 +61,32 @@ export default function FindTherapistCard2({
 
 const InputForm = ({ therapists }: { therapists: Therapist[] }) => {
   const router = useRouter();
+
   return (
-    <form onClick={(e)=>{
-        e.stopPropagation();
-    }} className="max-w-full ">
+    <form
+      onClick={(e) => e.stopPropagation()}
+      className="mt-4 flex flex-col gap-2"
+    >
       <select
-        
         defaultValue={"select"}
-        id="countries"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+        className="bg-[#0f2027] border border-[#2c5364] text-[#E6E8D2] text-sm rounded-lg focus:ring-[#48C9B0] focus:border-[#48C9B0] block w-full p-2.5"
       >
-        <option value={"select"} disabled>
+        <option value="select" disabled>
           Select Therapist Name
         </option>
-        {therapists.map((therapist, key) => {
-          return (
-            <option key={key} value={therapist.id}>
-              {therapist.name}
-            </option>
-          );
-        })}
+        {therapists.map((therapist, key) => (
+          <option key={key} value={therapist.id}>
+            {therapist.name}
+          </option>
+        ))}
       </select>
-        <button
-        onClick={()=>router.push("/therapists")}
-          className="bg-blue-700 hover:bg-blue-800 border w-full border-gray-300 text-white mt-2 text-sm rounded-lg   p-2.5 "
-        >
-          Proceed
-        </button>
+
+      <button
+        onClick={() => router.push("/therapists")}
+        className="bg-[#48C9B0] hover:bg-[#36a390] text-white font-medium text-sm rounded-lg py-2.5 transition-colors"
+      >
+        Proceed
+      </button>
     </form>
   );
 };

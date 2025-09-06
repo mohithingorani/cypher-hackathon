@@ -4,41 +4,41 @@ import ExpertiseCard from "./Expertise";
 export default function TherapistCard({
   name,
   image,
-  speciality
+  speciality,
 }: {
   name: string;
   image: string;
-  speciality:string
+  speciality: string;
 }) {
   return (
-    <div className="w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-3xl rounded-lg shadow-sm bg-[#E6E8D2] border-black text-black border ">
-      <div className="flex flex-col items-center text-start w-full md:flex-row p-4">
+    <div className="w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-3xl rounded-lg shadow-md border border-gray-700 bg-[#1c2a30] text-[#E6E8D2]">
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row items-center w-full p-4">
         <Image
-          className="object-fill w-full md:w-48 rounded-lg h-72 md:h-auto"
+          className="object-cover w-full md:w-44 rounded-md h-64 md:h-auto"
           src={`/people/${image}`}
           alt="Therapist Image"
           width={150}
           height={150}
         />
-        <div className="flex flex-col justify-between px-4 py-4 md:py-8 leading-normal w-full">
-          <h5 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
-            {name}
-          </h5>
-          <h4 className="text-base sm:text-lg italic mb-2">
+        <div className="flex flex-col justify-between px-4 py-4 md:py-6 w-full">
+          <h5 className="text-lg sm:text-xl font-semibold">{name}</h5>
+          <h4 className="text-sm sm:text-base italic mb-2 text-[#E6E8D2]/80">
             {speciality}
           </h4>
-          <h4 className="mb-2 text-sm sm:text-lg font-light">
-            Starts <span>@ Rs. 1499</span> for 60 mins session
+          <h4 className="mb-2 text-sm sm:text-base font-light">
+            Starts <span className="font-medium text-[#48C9B0]">@ Rs. 1499</span>{" "}
+            for 60 mins session
           </h4>
           <h4 className="text-sm sm:text-base">
-            <span className="font-semibold">Speaks:</span> English, Telugu,
-            Hindi, Tamil
+            <span className="font-medium">Speaks:</span> English, Telugu, Hindi,
+            Tamil
           </h4>
           <h3 className="text-sm sm:text-base">
-            <span className="font-bold">Mode:</span> Online Sessions
+            <span className="font-medium">Mode:</span> Online Sessions
           </h3>
           <div className="flex flex-col sm:flex-row sm:items-center mt-2">
-            <span className="font-bold">Expertise:</span>
+            <span className="font-medium">Expertise:</span>
             <div className="flex flex-wrap justify-start items-center gap-2 mx-2">
               <ExpertiseCard label="Anxiety" />
               <ExpertiseCard label="Depression" />
@@ -49,19 +49,23 @@ export default function TherapistCard({
           </div>
         </div>
       </div>
-      <div className="bg-slate-300 py-4 rounded-b-lg">
+
+      {/* Footer Section */}
+      <div className="bg-[#24353d] py-3 rounded-b-lg border-t border-gray-600">
         <div className="mx-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
           <div className="flex flex-col justify-start mb-2 sm:mb-0">
-            <div className="text-xs sm:text-sm">Next Available On</div>
-            <div className="underline text-sm sm:text-base">
+            <div className="text-xs sm:text-sm text-[#E6E8D2]/70">
+              Next Available On
+            </div>
+            <div className="underline text-sm sm:text-base text-[#48C9B0]">
               April 3, 2025 4:00 PM IST
             </div>
           </div>
-          <div className="flex gap-2 sm:gap-4">
-            <button className="bg-white border rounded-lg px-2 py-1 text-xs sm:text-sm cursor-pointer border-black hover:drop-shadow-lg">
+          <div className="flex gap-2 sm:gap-3">
+            <button className="bg-transparent border rounded-md px-3 py-1 text-xs sm:text-sm cursor-pointer border-gray-500 text-[#E6E8D2] hover:bg-gray-700/30 transition">
               Know More
             </button>
-            <button className="bg-blue-600 border rounded-lg px-2 py-1 text-xs sm:text-sm cursor-pointer text-white border-black hover:drop-shadow-lg">
+            <button className="bg-[#48C9B0] border rounded-md px-3 py-1 text-xs sm:text-sm cursor-pointer text-white border-[#48C9B0] hover:bg-[#3ba996] transition">
               Book Now
             </button>
           </div>
